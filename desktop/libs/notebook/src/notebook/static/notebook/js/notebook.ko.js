@@ -979,7 +979,7 @@ var EditorViewModel = (function() {
           window.clearTimeout(refreshTimeouts[path.join('.')]);
           refreshTimeouts[path.join('.')] = window.setTimeout(function () {
             ignoreNextAssistDatabaseUpdate = true;
-            DataCatalog.getEntry({ sourceType: self.type(), namespace: self.namespace(), compute: self.compute(), path: path }).done(function (entry) {
+            dataCatalog.getEntry({ sourceType: self.type(), namespace: self.namespace(), compute: self.compute(), path: path }).done(function (entry) {
               entry.clearCache({ invalidate: 'invalidate', cascade: true, silenceErrors: true });
             });
           }, 5000);
