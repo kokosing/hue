@@ -1170,11 +1170,9 @@ class ApiHelper {
 
   /**
    * @param {Object} options
-   * @param {Function} options.successCallback
-   * @param {Function} [options.errorCallback]
+   * @param {number} options.uuid
    * @param {boolean} [options.silenceErrors]
    * @param {boolean} [options.fetchContents]
-   * @param {number} options.uuid
    *
    * @return {CancellablePromise}
    */
@@ -1198,9 +1196,12 @@ class ApiHelper {
           );
         }
       }
-    }).fail(errorResponse => {
-      deferred.reject(self.assistErrorHandler(errorResponse));
-    });
+    }).fail(
+      self.assistErrorCallback({
+        silenceErrors: options.silenceErrors,
+        errorCallback: deferred.reject
+      })
+    );
     return new CancellablePromise(deferred, request);
   }
 
